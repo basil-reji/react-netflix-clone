@@ -1,0 +1,29 @@
+@import "../../../theme";
+
+nav {
+    color: $color4;
+    font-family: $font2;
+    margin: 0rem 2rem;
+    font-weight: 400;
+    font-size: 1rem;
+    ul {
+        display: flex;
+        justify-content: baseline;
+        align-items: center;
+        li {
+            list-style: none;
+            text-decoration: none;
+            a {
+                margin: 0rem 0.8rem;
+                color: rgba($color: $color4, $alpha: 0.7);
+                text-decoration: none;
+                transition: all 0.3s ease;
+
+                &:hover,
+                &.active {
+                    color: rgba($color: $color4, $alpha: 1);
+                }
+            }
+        }
+    }
+}
