@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./UserIcon.scss";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function UserIcon() {
     const [display, changeView] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+
+        function handleOutsideClick(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                if (display) {
+                    changeView(!display);
+                    document.removeEventListener("click", handleOutsideClick);
+                }
+            }
+            // console.log("You clicked outside")
+        }
+
+        if (display) {
+            document.addEventListener("click", handleOutsideClick);
+        }
+
+        return () => document.removeEventListener("click", handleOutsideClick);
+    }, [display, ref]);
 
     return (
         <div className="userIcon">
@@ -15,7 +35,7 @@ function UserIcon() {
                     srcset=""
                 />
             </div>
-            <div className="userOption">
+            <div className="userOption" ref={ref}>
                 <FontAwesomeIcon
                     icon={faCaretDown}
                     className="caret-down"
